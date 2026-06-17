@@ -32,32 +32,18 @@ $uri = service('uri');
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="#"
-               class="nav-link">
 
-                <i class="bi bi-box-seam me-2"></i>
-                Produits
-            </a>
-        </li>
 
         <li class="nav-item">
-            <a href="#"
+            <a href="/achat/historique"
                class="nav-link">
 
                 <i class="bi bi-bar-chart me-2"></i>
-                Rapports
+                Achats
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="#"
-               class="nav-link">
-
-                <i class="bi bi-gear me-2"></i>
-                Paramètres
-            </a>
-        </li>
+    
 
     </ul>
 
@@ -66,9 +52,7 @@ $uri = service('uri');
         <hr>
 
 
-        <div class="fw-bold">
-            <?= session('nom') ?? 'Administrateur' ?>
-        </div>
+
 
         <a href="/logout"
            class="btn btn-outline-danger w-100 mt-3">
