@@ -13,13 +13,14 @@ CREATE TABLE caisse (
     numero TEXT NOT NULL
 );
 
-
 CREATE TABLE achat (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_user INTEGER NOT NULL,
     id_caisse INTEGER NOT NULL,
     montant_total REAL DEFAULT 0,
 
     FOREIGN KEY (id_caisse) REFERENCES caisse(id)
+    FOREIGN KEY (id_user) REFERENCES user(id)
 );
 
 
@@ -45,3 +46,13 @@ INSERT INTO produit (designation, quantite_stock, prix_unitaire) VALUES
 INSERT INTO caisse (numero) VALUES
 ('Caisse 01'),
 ('Caisse 02');
+
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email VARCHAR(100) NOT NULL,
+    mot_de_passe VARCHAR(300) NOT NULL
+);
+
+INSERT INTO user (email, mot_de_passe)
+VALUES ('caissier@supermache.mg', 'caissier123');
