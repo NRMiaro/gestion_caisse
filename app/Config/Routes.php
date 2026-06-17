@@ -16,8 +16,10 @@ $routes->group('achat', ['filter' => 'auth'], function ($routes) {
     $routes->post('add', "AchatController::addToCart");
     $routes->get('remove/(:num)', "AchatController::removeItem/$1");
     $routes->get('historique', "AchatController::historique");
+    $routes->post('finaliser', "AchatController::finaliser");
 });
 
 $routes->get('/', 'AuthController::pageLogin');
 $routes->get('login', 'AuthController::pageLogin');
+$routes->get('logout', 'AuthController::logout');
 $routes->post('authenticate', 'AuthController::authenticate');

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\AchatModel;
+use App\Models\AchatDetailModel;
 use App\Models\ProduitModel;
 use App\Models\AchatModel;
 
@@ -77,5 +79,61 @@ class AchatController extends BaseController
         $model = new AchatModel();
         $achats = $model->select(' achat.id, achat.montant_total, caisse.numero, user.email ')->join('caisse', 'caisse.id = achat.id_caisse')->join('user', 'user.id = achat.id_user')->findAll();
         return view('achat/historique', ['title' => 'Historique des achats', 'achats' => $achats]);
+    public function finaliser()
+    {
+        $session = session();
+        $panier = $session->get('panier') ?? [];
+
+        if (empty($panier)) {
+            return redirect()->to('/achat/saisie');
+        }
+
+        $achatModel = new AchatModel();
+        $detailModel = new AchatDetailModel();
+        $produitModel = new ProduitModel();
+
+        $idCaisse = $session->get('id_caisse') ?? 1;
+        $idUser   = $session->get('id_user') ?? 1;
+
+        $total = 0;
+        foreach ($panier as $item) {
+            $total += $item['prix'] * $item['quantite'];
+        }
+
+        try {
+            // créer achat
+            $achatId = $achatModel->insert([
+                'id_caisse' => $idCaisse,
+                'id_user' => $idUser,
+                'montant_total' => $total
+            ], true);
+
+            // créer details + update stock
+            foreach ($panier as $item) {
+
+                $montant = $item['prix'] * $item['quantite'];
+
+                // achat_detail
+                $detailModel->insert([
+                    'id_achat' => $achatId,
+                    'id_produit' => $item['id'],
+                    'quantite' => $item['quantite'],
+                    'montant' => $montant
+                ]);
+
+                // update stock produit
+                $produitModel->set('quantite_stock', 'quantite_stock - ' . (int)$item['quantite'], false)
+                    ->where('id', $item['id'])
+                    ->update();
+            }
+
+            // 3. vider panier
+            $session->remove('panier');
+
+            return redirect()->to('/achat/saisie')
+                ->with('success', 'Vente finalisée avec succès');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
