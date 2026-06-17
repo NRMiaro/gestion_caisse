@@ -11,7 +11,7 @@ class CaisseController extends BaseController
         $caisseModel = new CaisseModel();
         $listCaisses = $caisseModel->findAll();
 
-        return view('caisse/choix', [
+        return view('selection', [
             'listCaisses' => $listCaisses
         ]);
     }

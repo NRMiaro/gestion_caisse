@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1781684246;id_caisse|s:1:"1";_ci_previous_url|s:44:"http://localhost:8080/index.php/achat/saisie";panier|a:2:{i:1;a:4:{s:2:"id";s:1:"1";s:11:"designation";s:9:"Coca Cola";s:4:"prix";d:15000;s:8:"quantite";i:3;}i:5;a:4:{s:2:"id";s:1:"5";s:11:"designation";s:11:"Black Label";s:4:"prix";d:10000;s:8:"quantite";i:1;}}

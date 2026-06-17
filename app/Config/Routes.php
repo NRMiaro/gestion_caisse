@@ -13,4 +13,6 @@ $routes->group('caisse', function($routes){
 
 $routes->group('achat', function($routes){
     $routes->get('saisie', "AchatController::saisie");
+    $routes->post('add', "AchatController::addToCart");
+    $routes->get('remove/(:num)', "AchatController::removeItem/$1");
 });
