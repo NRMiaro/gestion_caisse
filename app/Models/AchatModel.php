@@ -18,7 +18,7 @@ class AchatModel extends Model
     protected $validationRules = [
         'id_caisse' => "required",
         'id_user' => "required",
-        'montant_total' => "demical|greater_than_equal_to[0]"
+        'montant_total' => "decimal|greater_than_equal_to[0]"
     ];
 
     protected $validationMessages = [
