@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\ProduitModel;
+use App\Models\AchatModel;
+
 
 class AchatController extends BaseController
 {
@@ -68,5 +70,12 @@ class AchatController extends BaseController
         $session->set('panier', $panier);
 
         return redirect()->to('/achat/saisie');
+    }
+
+    public function historique()
+    {
+        $model = new AchatModel();
+        $achats = $model->select(' achat.id, achat.montant_total, caisse.numero, user.email ')->join('caisse', 'caisse.id = achat.id_caisse')->join('user', 'user.id = achat.id_user')->findAll();
+        return view('achat/historique', ['title' => 'Historique des achats', 'achats' => $achats]);
     }
 }
