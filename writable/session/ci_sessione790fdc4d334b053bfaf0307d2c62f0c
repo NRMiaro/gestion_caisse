@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1781684764;id_caisse|s:1:"1";_ci_previous_url|s:44:"http://localhost:8080/index.php/achat/saisie";panier|a:1:{i:3;a:4:{s:2:"id";s:1:"3";s:11:"designation";s:12:"Jack Daniels";s:4:"prix";d:80000;s:8:"quantite";i:5;}}id|i:1;email|s:22:"caissier@supermache.mg";mot_de_passe|s:11:"caissier123";isLoggedIn|b:1;
