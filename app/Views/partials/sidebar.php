@@ -24,20 +24,11 @@ $uri = service('uri');
     <ul class="nav flex-column gap-1">
 
         <li class="nav-item">
-            <a href="/caisse/achats ?>"
+            <a href="/achat/saisie"
                class="nav-link <?= $uri->getPath() == 'caisse/achats' ? 'active' : '' ?>">
 
                 <i class="bi bi-cart-check me-2"></i>
                 Vente
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href='/caisse/historique' ?>"
-               class="nav-link <?= $uri->getPath() == 'caisse/historique' ? 'active' : '' ?>">
-
-                <i class="bi bi-clock-history me-2"></i>
-                Historique
             </a>
         </li>
 

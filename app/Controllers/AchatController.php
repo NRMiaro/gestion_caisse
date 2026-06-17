@@ -2,12 +2,71 @@
 
 namespace App\Controllers;
 
-use App\Models\CaisseModel;
+use App\Models\ProduitModel;
 
 class AchatController extends BaseController
 {
     public function saisie()
     {
-        return view('achat/saisie');
+        $produitModel = new ProduitModel();
+
+        $session = session();
+
+        // panier stocké en session
+        $panier = $session->get('panier') ?? [];
+
+        $listProduits = $produitModel->findAll();
+
+        return view('achat/saisie', [
+            'listProduits' => $listProduits,
+            'panier' => $panier
+        ]);
+    }
+
+    // AJOUT PRODUIT AU PANIER (achat_detail temporaire)
+    public function addToCart()
+    {
+        $session = session();
+        $produitModel = new ProduitModel();
+
+        $idProduit = $this->request->getPost('id_produit');
+        $quantite = (int) $this->request->getPost('quantite');
+
+        $produit = $produitModel->find($idProduit);
+
+        if (!$produit) {
+            return redirect()->back();
+        }
+
+        $panier = $session->get('panier') ?? [];
+
+        // si produit existe déjà dans panier
+        if (isset($panier[$idProduit])) {
+            $panier[$idProduit]['quantite'] += $quantite;
+        } else {
+            $panier[$idProduit] = [
+                'id' => $idProduit,
+                'designation' => $produit['designation'],
+                'prix' => $produit['prix_unitaire'],
+                'quantite' => $quantite
+            ];
+        }
+
+        $session->set('panier', $panier);
+
+        return redirect()->to('/achat/saisie');
+    }
+
+    // supprimer un item
+    public function removeItem($id)
+    {
+        $session = session();
+        $panier = $session->get('panier') ?? [];
+
+        unset($panier[$id]);
+
+        $session->set('panier', $panier);
+
+        return redirect()->to('/achat/saisie');
     }
 }
