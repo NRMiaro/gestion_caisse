@@ -52,6 +52,21 @@
                 <h2 class="fw-bold">Super-M</h2>
                 <p class="text-muted">Connexion à la caisse</p>
             </div>
+            <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                    <?= session()->getFlashdata('error') ?>
+
+                    <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
+                </div>
+            <?php endif; ?>
+           
+
 
             <form method="POST" action="/authenticate">
 
@@ -65,7 +80,7 @@
                             type="email"
                             class="form-control"
                             name="email"
-                            value="caissier@supermarche.mg"
+                            value="caissier@supermache.mg"
                             required>
                     </div>
                 </div>
