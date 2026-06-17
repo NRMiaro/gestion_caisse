@@ -94,7 +94,7 @@
 
                             <td>
                                 <a href="<?= base_url('/achat/remove/' . $item['id']) ?>"
-                                   class="btn btn-sm btn-outline-danger">
+                                    class="btn btn-sm btn-outline-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
@@ -130,10 +130,17 @@
 <?php if (!empty($panier)): ?>
     <div class="mt-4 text-end">
 
-        <button class="btn btn-success btn-lg px-5">
-            <i class="bi bi-check-circle me-2"></i>
-            Finaliser la vente
-        </button>
+        <form method="POST" action="<?= base_url('/achat/finaliser') ?>">
+
+            <button type="submit"
+                class="btn btn-success btn-lg px-5"
+                <?= empty($panier) ? 'disabled' : '' ?>>
+
+                <i class="bi bi-check-circle me-2"></i>
+                Finaliser la vente
+            </button>
+
+        </form>
 
     </div>
 <?php endif; ?>
